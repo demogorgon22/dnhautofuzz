@@ -1,0 +1,12 @@
+version: '2.0'
+
+services:
+        fuzzagent:
+                build: 
+                        context: fuzzagent
+                        args:
+                               - DNH_REPO=https://github.com/Chris-plus-alphanumericgibberish/dNAO.git
+                               - DNH_FOLDER=dNAO
+                hostname: 'fuzzagent'
+                restart: always
+
