@@ -2,9 +2,9 @@ set pagination on
 
 tb allmain.c:welcome
 
-set environment NETHACKOPTIONS = @./debugrc
+#set environment NETHACKOPTIONS = @/app/debugrc
 
-run -D 2>err.log
+run -u $HOSTNAME -D 2>err.log
 
 break __sanitizer::Die
 

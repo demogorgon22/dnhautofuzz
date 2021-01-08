@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:sid-slim
 
 ARG DNH_REPO
 
@@ -10,9 +10,15 @@ ENV DNH_FOLDER "$DNH_FOLDER"
 
 RUN apt-get update
 
-RUN apt-get install -y libncurses5-dev build-essential flex bison gcc git gdb
+RUN apt-get install -y libncurses5-dev build-essential flex bison gcc git gdb procps
+
+RUN useradd -s /bin/bash -m fuzzagent
 
 WORKDIR /app
+
+RUN chown -R fuzzagent:fuzzagent /app
+
+USER fuzzagent
 
 RUN git clone $DNH_REPO
 
@@ -22,7 +28,9 @@ RUN cd /app/$DNH_FOLDER && make install
 
 COPY init.sh .
 
+COPY debugrc /home/fuzzagent/.nethackrc
+
 COPY gdbconfig .
 
-CMD sleep infinity
-#CMD cd /app/$DNH_FOLDER && /app/init.sh
+#CMD sleep infinity
+CMD cd /app/$DNH_FOLDER && /app/init.sh
