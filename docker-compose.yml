@@ -9,4 +9,7 @@ services:
                                - DNH_FOLDER=dNAO
                 hostname: 'fuzzagent'
                 restart: always
+                environment:
+                        DNH_DIR: "dnethackdir"
+                        DNH_GAME: "dnethack"
 

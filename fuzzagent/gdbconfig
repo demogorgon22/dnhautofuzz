@@ -1,0 +1,16 @@
+set pagination on
+
+tb allmain.c:welcome
+
+set environment NETHACKOPTIONS = @./debugrc
+
+run -D 2>err.log
+
+break __sanitizer::Die
+
+#record btrace bts
+
+set iflags.debug_fuzzer = 1
+set iflags.dnethack_start_text = 0
+
+continue
