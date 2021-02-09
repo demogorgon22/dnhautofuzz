@@ -1,16 +1,39 @@
+set logging off
+
 set pagination on
 
 tb allmain.c:welcome
 
 #set environment NETHACKOPTIONS = @/app/debugrc
 
+
 run -u $HOSTNAME -D 2>err.log
 
-break __sanitizer::Die
-
 #record btrace bts
+
+break __sanitizer::Die
 
 set iflags.debug_fuzzer = 1
 set iflags.dnethack_start_text = 0
 
 continue
+
+set logging file /app/backtrace.txt
+
+set logging on
+
+bt
+
+set logging off 
+
+set logging file /app/msgs.txt
+
+set logging on
+
+p msgs
+
+set logging off 
+
+set confirm off
+
+quit

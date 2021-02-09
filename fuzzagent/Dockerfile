@@ -24,6 +24,8 @@ RUN git clone $DNH_REPO
 
 RUN cd /app/$DNH_FOLDER && sed -i -e "/^CFLAGS/s/-g/-g -fsanitize=address/" GNUmakefile && sed -i -e "/^LDFLAGS/s/-Wno-knr-promoted-parameter/-Wno-knr-promoted-parameter -fsanitize=address/" GNUmakefile
 
+RUN cd /app/$DNH_FOLDER && sed -i -e "/boolean currentgend = Upolyd ? u.mfemale : flags.female;/s/.*/boolean currentgend = Upolyd ? u.mfemale : flags.female;buf[-1] = 0;/" src/allmain.c
+
 RUN cd /app/$DNH_FOLDER && make install
 
 COPY init.sh .
